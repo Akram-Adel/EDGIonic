@@ -7,11 +7,35 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
+  <ion-list *ngIf="!session">
+    <form (ngSubmit)="joinSession()">
+      <ion-item>
+        <ion-label color="primary" floating>Participant</ion-label>
+        <ion-input [(ngModel)]="myUserName" name="participant"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" floating>Session</ion-label>
+        <ion-input [(ngModel)]="mySessionId" name="session"></ion-input>
+      </ion-item>
+
+      <button ion-button margin type="submit">Join</button>
+    </form>
+  </ion-list>
+
+  <ion-list *ngIf="session" padding>
+    <div *ngIf="appVersion"> {{ appVersion }} </div>
+    <br>
+    <div *ngIf="errorText"> {{ errorText }} </div>
+
+    <ion-item *ngIf="publisher">
+      <div padding>Publisher Video Is Down Here</div>
+      <user-video [streamManager]="publisher"></user-video>
+    </ion-item>
+
+    <ion-item *ngFor="let sub of subscribers">
+      <div padding>Subscribers Video Is Down Here</div>
+      <user-video [streamManager]="sub"></user-video>
     </ion-item>
   </ion-list>
 </ion-content>
