@@ -23,19 +23,18 @@
     </form>
   </ion-list>
 
-  <ion-list *ngIf="session" padding>
-    <div *ngIf="appVersion"> {{ appVersion }} </div>
-    <br>
-    <div *ngIf="errorText"> {{ errorText }} </div>
 
-    <ion-item *ngIf="publisher">
-      <div padding>Publisher Video Is Down Here</div>
+
+  <ion-list *ngIf="session" class="session">
+    <button ion-button padding color="danger" small float-right (click)="leaveSession()">Leave Session</button>
+
+    <div *ngIf="publisher" class="publisher-stream">
       <user-video [streamManager]="publisher"></user-video>
-    </ion-item>
+    </div>
 
-    <ion-item *ngFor="let sub of subscribers">
-      <div padding>Subscribers Video Is Down Here</div>
+    <div *ngFor="let sub of subscribers" class="subscribers-stream">
+      <ion-badge item-end> {{ getNicknameTag(sub) }} </ion-badge>
       <user-video [streamManager]="sub"></user-video>
-    </ion-item>
+    </div>
   </ion-list>
 </ion-content>

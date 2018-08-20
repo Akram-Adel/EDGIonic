@@ -26,14 +26,13 @@ export class ContactPage {
 
   mainStreamManager:StreamManager;
 
-  appVersion:string;
-  errorText:string;
-
 
 
   constructor(
     public navCtrl: NavController,
     private httpClient:HttpClient) { console.log('contacts page') }
+
+  ionViewDidLeave() { this.leaveSession(); }
 
 
 
@@ -55,8 +54,6 @@ export class ContactPage {
 
     // 4) Connect to the session with a valid user token
     this.getToken().then(token => {
-      var ua = navigator.userAgent; console.log( ua ); this.appVersion = ua;
-
       this.session.connect(token, { clientData : this.myUserName })
       .then(() => {
         // 5) Get your own camera stream
@@ -78,14 +75,28 @@ export class ContactPage {
       })
       .catch(error => {
         console.log('There was an error connecting to the session:', error.code, error.message);
-        this.errorText = 'There was an error connecting to the session:'+ error.code+ error.message
       });
     })
+  }
+
+  leaveSession() {
+    // 7) Leave the session by calling 'disconnect' method over the Session object
+    if (this.session) { this.session.disconnect(); };
+
+    // Empty all properties...
+    this.subscribers = [];
+    delete this.publisher;
+    delete this.session;
+    delete this.OV;
   }
 
   private deleteSubscriber(streamManager:StreamManager):void {
     let index = this.subscribers.indexOf(streamManager, 0);
     if(index > -1) this.subscribers.splice(index, 1);
+  }
+
+  getNicknameTag(streamManager) { // Gets the nickName of the user
+    return JSON.parse(streamManager.stream.connection.data).clientData;
   }
 
 
