@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { StreamManager } from 'openvidu-browser';
+import { IonicPage } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'user-video',
   templateUrl: 'user-video.html'

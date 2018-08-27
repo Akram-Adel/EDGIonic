@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { NavController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { OpenVidu, Session, StreamManager, Publisher, Subscriber, StreamEvent } from 'openvidu-browser';
+import { SpinnerProvider } from '../../providers/spinner/spinner';
 
+@IonicPage()
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
@@ -29,10 +31,16 @@ export class ContactPage {
 
 
   constructor(
-    public navCtrl: NavController,
-    private httpClient:HttpClient) { console.log('contacts page') }
+    private httpClient:HttpClient,
+    private spinner:SpinnerProvider) { }
 
   ionViewDidLeave() { this.leaveSession(); }
+
+  ionViewDidLoad() {
+    setTimeout(() => {
+      if(this.spinner.spinner) this.spinner.dismissSpinner();
+    }, 50);
+  }
 
 
 

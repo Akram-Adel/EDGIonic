@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Account</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+    <button ion-item item-title main-menu (click)="openPage(page.component)" *ngFor="let page of myAccountPages">
+      <ion-icon icon-small item-left>
+        <i class="icon {{page.iconClass}}"></i>
+      </ion-icon>
+      {{ page.name }}
+    </button>
+
+  </ion-list>
+</ion-content>

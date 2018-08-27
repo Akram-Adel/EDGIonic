@@ -1,1 +1,21 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="ionMenu">
+  <ion-header>
+    <div header-background-image padding [ngStyle]="{'background-image': 'url(assets/images/background-small/0.jpg)'}">
+        <img src="assets/images/logo/1.png">
+        <h2 ion-text header-title>Edg Ionic App</h2>
+    </div>
+  </ion-header>
+
+  <ion-content>
+    <ion-list no-margin>
+      <button ion-item item-title main-menu no-lines border (click)="openPage(page.component)" *ngFor="let page of listPages">
+        <ion-icon icon-small item-left>
+          <i class="icon {{page.iconClass}}"></i>
+        </ion-icon>
+        {{page.name}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #ionMenu [root]="rootPage"></ion-nav>
