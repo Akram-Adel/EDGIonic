@@ -13,4 +13,9 @@ export class TabsLayout2 {
 
     constructor() { }
 
+    onEvent(event:string, item:any) {
+        if(this.events[event]) {
+            this.events[event](item)
+        }
+    }
 }

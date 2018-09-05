@@ -22,7 +22,8 @@
                 <!---Input field username-->
                 <ion-item transparent>
                     <ion-label stacked>{{data.labelUsername}}</ion-label>
-                    <ion-input required placeholder="{{data.username}}" type="text" [(ngModel)]="username"></ion-input>
+                    <ion-input required placeholder="{{data.username}}" *ngIf="!data.changePassword" type="text" [(ngModel)]="username"></ion-input>
+                    <ion-input required placeholder="{{data.username}}" *ngIf="data.changePassword"  type="password" [(ngModel)]="username"></ion-input>
                     <ion-label error-field color="primary" no-margin *ngIf="!isUsernameValid">{{data.errorUser}}</ion-label>
                 </ion-item>
                 <!---Input field password-->
