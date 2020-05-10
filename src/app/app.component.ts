@@ -16,7 +16,8 @@ export class MyApp {
     { name: 'Home',            component: 'TabsPage',              iconClass: 'icon-home' },
     { name: 'Login',           component: 'LoginPage',             iconClass: 'icon-lock-open-outline' },
     { name: 'Register',        component: 'RegisterPage',          iconClass: 'icon-key-plus' },
-    { name: 'Details',         component: 'CourseTutorDetailPage', iconClass: 'icon-checkbox-marked-circle-outline' }
+    { name: 'Details',         component: 'CourseTutorDetailPage', iconClass: 'icon-checkbox-marked-circle-outline' },
+    { name: 'Contact',         component: 'ContactPage',           iconClass: 'icon-home' }
   ]
 
 

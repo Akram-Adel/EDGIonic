@@ -5,8 +5,10 @@ import { IonicPage } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { OpenVidu, Session, StreamManager, Publisher, Subscriber, StreamEvent } from 'openvidu-browser';
+// import { OpenVidu, Session, StreamManager, Publisher, Subscriber, StreamEvent } from 'openvidu-browser';
 import { SpinnerProvider } from '../../providers/spinner/spinner';
+
+declare let OpenVidu:any;
 
 @IonicPage()
 @Component({
@@ -18,15 +20,15 @@ export class ContactPage {
   OPENVIDU_SERVER_URL = 'https://webrtc.jv-tech.com:4443';
   OPENVIDU_SERVER_SECRET = 'horse_camel_alentejo123';
 
-  OV:OpenVidu;
-  session:Session;
-  publisher:StreamManager;
-  subscribers:StreamManager[] = [];
+  OV;
+  session;
+  publisher;
+  subscribers = [];
 
-  myUserName:string = '';
-  mySessionId:string = '';
+  myUserName:string = 'testUser';
+  mySessionId:string = 'testSession';
 
-  mainStreamManager:StreamManager;
+  mainStreamManager;
 
 
 
@@ -52,11 +54,11 @@ export class ContactPage {
     this.session = this.OV.initSession();
 
     // 3) Specify the actions when events take place in the session
-    this.session.on('streamCreated', (event:StreamEvent) => {
-      let subscriber:Subscriber = this.session.subscribe(event.stream, undefined);
+    this.session.on('streamCreated', (event) => {
+      let subscriber = this.session.subscribe(event.stream, undefined);
       this.subscribers.push(subscriber);
     })
-    this.session.on('streamDestroyed', (event:StreamEvent) => {
+    this.session.on('streamDestroyed', (event) => {
       this.deleteSubscriber(event.stream.streamManager);
     })
 
@@ -65,7 +67,7 @@ export class ContactPage {
       this.session.connect(token, { clientData : this.myUserName })
       .then(() => {
         // 5) Get your own camera stream
-        let publisher:Publisher = this.OV.initPublisher(undefined, {
+        let publisher = this.OV.initPublisher(undefined, {
           audioSource: undefined,
           videoSource: undefined,
           publishAudio: true,
@@ -98,7 +100,7 @@ export class ContactPage {
     delete this.OV;
   }
 
-  private deleteSubscriber(streamManager:StreamManager):void {
+  private deleteSubscriber(streamManager):void {
     let index = this.subscribers.indexOf(streamManager, 0);
     if(index > -1) this.subscribers.splice(index, 1);
   }
