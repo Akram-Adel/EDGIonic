@@ -2,5 +2,5 @@
 
 ## Upwork Specifications
 
-An Ionic 3 app, intended to be used for education purposes.
+An Ionic 4 app, intended to be used for education purposes.
 The app was designed to have a video chating room for 1 to 1 private sessions.
